@@ -1,0 +1,32 @@
+def create_id_card(name, id_number, designation, company, save_path="id_card.png"):
+    # Create an ID card image
+    width, height = 600, 300
+    id_card = Image.new("RGB", (width, height), "white")
+    draw = ImageDraw.Draw(id_card)
+
+    # Load a font (Ensure you have Arial or any .ttf font in the directory)
+    try:
+        font = ImageFont.truetype("arial.ttf", 24)
+        font_bold = ImageFont.truetype("arialbd.ttf", 28)
+    except IOError:
+        font = ImageFont.load_default()
+        font_bold = font
+
+    # Draw a rectangle as a border
+    border_color = "black"
+    draw.rectangle([10, 10, width-10, height-10], outline=border_color, width=3)
+
+    # Company Name
+    draw.text((width//2 - 80, 30), company, fill="blue", font=font_bold)
+
+    # ID Card Details
+    draw.text((50, 100), f"Name: {name}", fill="black", font=font)
+    draw.text((50, 140), f"ID: {id_number}", fill="black", font=font)
+    draw.text((50, 180), f"Designation: {designation}", fill="black", font=font)
+
+    # Save the ID card
+    id_card.save(save_path)
+    print(f"ID Card saved as {save_path}")
+
+# Example usage
+create_id_card("John Doe", "12345", "Software Engineer", "TechCorp") no
